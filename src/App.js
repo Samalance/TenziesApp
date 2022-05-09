@@ -1,15 +1,27 @@
 
 import Die from './Die';
 import React from 'react';
+import { nanoid } from "nanoid"
 
 function App() {
 
 
   const [die, setDie] = React.useState(generateGame())
   const [gameover, setGameOver] = React.useState(false)
+  const [rolls, setRolls] = React.useState(0)
+  //const [highscore, setHighScore] = React.useState(0)
+  
+
+  const [highscore, setHighScore] = React.useState(JSON.parse(localStorage.getItem("highscore")) || 0)
+  React.useEffect(() => {
+    localStorage.setItem("highscore", JSON.stringify(highscore))
+  }, [highscore])
   
 
   React.useEffect( function() {
+
+    //Checks if the game has been Won
+    //Runs this every time the die get rerolled
     const compareNumber = die[0].number
     let isSame = true
     let i = 0
@@ -28,7 +40,7 @@ function App() {
     
     for (let i = 0; i < 10; i++) {
       const dieObject = {
-        id: i + 1,
+        id: nanoid(),
         number: Math.floor((Math.random() * 6) + 1),
         //number: 4,
         isLocked: false
@@ -41,6 +53,11 @@ function App() {
   function newGame() {
     setDie(generateGame())
     setGameOver(false)
+    if(highscore === 0)
+      setHighScore(rolls)     
+    if(rolls < highscore)
+      setHighScore(rolls)
+    setRolls(0)
   }
 
   function toggleLocked(id) {
@@ -56,13 +73,16 @@ function App() {
         return die.isLocked ? die : { ...die, number: Math.floor((Math.random() * 6) + 1)}
       })
     })
+
+    setRolls(prevRolls => prevRolls + 1)
     
   }
   
   const dieData = die.map(die => {
     return <Die
       className="die{$die.id}"
-      id={die.id}
+      key={die.id}
+      id = {die.id}
       number={die.number}
       isLocked={die.isLocked}
       toggleLocked={toggleLocked}
@@ -82,7 +102,15 @@ function App() {
           onClick={gameover ? newGame : reroll}
         >
           {gameover ? "Play Again" : "Reroll"}
-        </button>
+        </button> 
+      </div>
+      <div className='rolls'>
+        <h2>
+          Rolls: {rolls}
+        </h2>
+        <h2>
+          HighScore: {highscore}
+        </h2>
       </div>
     </div>
   );

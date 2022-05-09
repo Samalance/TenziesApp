@@ -18,7 +18,7 @@ export default function Die(props) {
             style = {styles}
             onClick={() => props.toggleLocked(props.id)}
         >
-            <text className='die-number'>{props.number}</text>
+            <p className='die-number'>{props.number}</p>
         </div>
     )
 }

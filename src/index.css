@@ -36,7 +36,7 @@ code {
 
   
   width: 400px;
-  height: 400px;
+  height: 350px;
   left: 76px;
   top: 69px;
   
@@ -79,4 +79,10 @@ code {
   color:white;
   box-shadow: 0px 3.2px 7.68px rgba(0, 0, 0, 0.18);
   border-radius: 3.81277px;
+}
+.rolls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: white;
 }
