@@ -1,3 +1,9 @@
+Tenzies app created with React
+
+User clicks the numbers to Lock them and save them.
+
+Objective of Tenzies is to have all dice the same number.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
